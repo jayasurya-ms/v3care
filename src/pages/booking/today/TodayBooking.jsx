@@ -531,10 +531,9 @@ const TodayBooking = () => {
         customBodyRender: (value, tableMeta) => {
           const orderAssign = tableMeta.rowData[15];
 
-          const activeAssignments = orderAssign.filter(
-            (assign) => assign.order_assign_status !== "Cancel",
+          const activeAssignments = orderAssign?.filter(
+            (assign) => assign?.order_assign_status !== "Cancel",
           );
-
           if (activeAssignments.length === 0) {
             return <span>-</span>;
           }
@@ -546,7 +545,8 @@ const TodayBooking = () => {
                   <tr>
                     <td className="text-xs px-[2px] leading-[12px]">
                       {activeAssignments
-                        .map((assign) => assign.user.name)
+                        ?.map((assign) => assign?.user?.name)
+                        .filter(Boolean)
                         .join(", ")}
                     </td>
                   </tr>

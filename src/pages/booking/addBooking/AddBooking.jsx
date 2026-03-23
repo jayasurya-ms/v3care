@@ -10,6 +10,7 @@ import {
   InputLabel,
   MenuItem,
   Select,
+  TextField,
   Typography,
 } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
@@ -544,15 +545,13 @@ const AddBooking = () => {
                 />
               </div>
               <div>
-                <Fields
-                  types="email"
-                  title="Email"
-                  type="textField"
+                <Input
+                  label="Email"
+                  type="email"
                   autoComplete="Name"
                   name="order_customer_email"
                   value={booking.order_customer_email}
                   onChange={(e) => onInputChange(e)}
-                  startIcon={<Email sx={{ color: "red" }} />}
                 />
               </div>
             </div>

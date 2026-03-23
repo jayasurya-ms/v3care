@@ -388,6 +388,7 @@ const QuotationForm = () => {
               value={formData.quotation_customer_email}
               onChange={handleChange}
               size="small"
+              type="email"
               fullWidth
             />
             <TextField

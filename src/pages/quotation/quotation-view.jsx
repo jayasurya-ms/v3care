@@ -10,6 +10,7 @@ import stamplogo from "../../../public/stamplogo.png";
 import { BASE_URL } from "../../base/BaseUrl";
 import PageHeader from "../../components/common/PageHeader/PageHeader";
 import Layout from "../../layout/Layout";
+import ButtonConfigColor from "../../components/common/ButtonConfig/ButtonConfigColor";
 
 const QuatationView = () => {
   const containerRef = useRef();
@@ -17,6 +18,7 @@ const QuatationView = () => {
   const [formData, setFormData] = useState({});
   const token = localStorage.getItem("token");
   const [showLogo, setShowLogo] = useState(true);
+  const [emailLoading, setEmailLoading] = useState(false);
   const fetchBooking = async () => {
     try {
       const response = await axios.get(
@@ -31,7 +33,6 @@ const QuatationView = () => {
   useEffect(() => {
     fetchBooking();
   }, [id]);
-
   const quotation = formData?.quotation || {};
   const quotationSub = formData?.quotationSub || [];
   const company = formData?.company || {};
@@ -53,6 +54,49 @@ const QuatationView = () => {
   const amountInWords =
     toWords(Math.round(grandTotal)).replace(/\b\w/g, (c) => c.toUpperCase()) +
     " Rupees Only";
+
+  const sendQuotationEmail = async () => {
+    try {
+      if (!id) {
+        toast.error("Invalid quotation ID");
+        return;
+      }
+
+      const email = quotation?.quotation_customer_email;
+
+      if (!email) {
+        toast.error("Customer email is missing");
+        return;
+      }
+
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        toast.error("Invalid email format");
+        return;
+      }
+
+      setEmailLoading(true);
+
+      const response = await axios.get(
+        `${BASE_URL}/api/panel-send-quotation-email/${id}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        },
+      );
+
+      // ✅ Check API custom response
+      if (response?.data?.code === 200) {
+        toast.success(response?.data?.msg || "Email sent successfully");
+      } else {
+        toast.error(response?.data?.msg || "Failed to send email");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Something went wrong while sending email");
+    } finally {
+      setEmailLoading(false);
+    }
+  };
   return (
     <Layout>
       <div className="relative">
@@ -71,12 +115,7 @@ const QuatationView = () => {
               </label>
 
               <ReactToPrint
-                trigger={() => (
-                  <button className=" bg-blue-500 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-blue-600 flex items-center font-normal">
-                    <Printer className="h-4 w-4 mr-2" />
-                    Print
-                  </button>
-                )}
+                trigger={() => <ButtonConfigColor type="print" label="Print" />}
                 content={() => containerRef.current}
                 documentTitle="Quatation"
                 pageStyle={`
@@ -100,6 +139,12 @@ const QuatationView = () => {
     }
   }
 `}
+              />
+              <ButtonConfigColor
+                type="email"
+                label="Send Email"
+                onClick={sendQuotationEmail}
+                loading={emailLoading}
               />
             </div>
           }
@@ -322,6 +367,7 @@ const QuatationView = () => {
             </div>
           </div>
         </div>
+        
       </div>
     </Layout>
   );

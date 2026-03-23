@@ -509,7 +509,8 @@ const RnrList = () => {
                   <tr>
                     <td className="text-xs px-[2px] leading-[12px]">
                       {activeAssignments
-                        .map((assign) => assign.user.name)
+                        ?.map((assign) => assign?.user?.name)
+                        .filter(Boolean)
                         .join(", ")}
                     </td>
                   </tr>

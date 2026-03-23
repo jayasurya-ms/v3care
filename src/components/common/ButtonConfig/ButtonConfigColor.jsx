@@ -8,6 +8,7 @@ import {
   FaCheck,
   FaPrint,
   FaRegEye,
+  FaEnvelope,
 } from "react-icons/fa";
 import { FiDownload, FiLoader } from "react-icons/fi";
 
@@ -40,6 +41,8 @@ const ButtonConfigColor = ({
         return "bg-blue-600 hover:bg-red-700 text-white";
       case "logout":
         return "bg-blue-600 hover:bg-red-700 text-white";
+      case "email":
+        return "bg-green-600 hover:bg-green-700 text-white";
       default:
         return "bg-blue-400 hover:bg-blue-500 text-white";
     }
@@ -66,6 +69,8 @@ const ButtonConfigColor = ({
         return <FaRegEye />;
       case "logout":
         return <BiLogOut />;
+      case "email":
+        return <FaEnvelope />;
       default:
         return null;
     }
