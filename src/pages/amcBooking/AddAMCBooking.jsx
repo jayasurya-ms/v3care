@@ -404,9 +404,12 @@ const AddAMCBooking = () => {
   };
 
   useEffect(() => {
+    window.setupGoogleMaps = () => {
+      handleScriptLoad(setQuery, autoCompleteRef);
+    };
     loadScript(
-      `https://maps.googleapis.com/maps/api/js?key=${REACT_APP_GOOGLE_MAPS_KEY}&libraries=places`,
-      () => handleScriptLoad(setQuery, autoCompleteRef)
+      `https://maps.googleapis.com/maps/api/js?key=${REACT_APP_GOOGLE_MAPS_KEY}&libraries=places&loading=async&callback=setupGoogleMaps`,
+      () => {}
     );
   }, []);
 

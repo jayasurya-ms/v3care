@@ -64,11 +64,13 @@ const EditVendor = () => {
       callback();
       return;
     }
+    window.setupGoogleMaps = () => {
+      callback();
+    };
     const script = document.createElement("script");
-    script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyAk4WgZpl2DuYxnfgYLCXEQKvVLK3hJ7S0&libraries=places`;
+    script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyAk4WgZpl2DuYxnfgYLCXEQKvVLK3hJ7S0&libraries=places&loading=async&callback=setupGoogleMaps`;
     script.async = true;
     script.defer = true;
-    script.onload = callback;
     document.head.appendChild(script);
   };
 
