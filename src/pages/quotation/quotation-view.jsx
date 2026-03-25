@@ -239,11 +239,12 @@ const QuatationView = () => {
                     <th className="text-left py-2 px-2 text-sm font-bold">
                       DESCRIPTION
                     </th>
-                    <th className="text-right py-2 px-2 text-sm font-bold">
-                      PRICE
-                    </th>
+
                     <th className="text-right py-2 px-2 text-sm font-bold">
                       QTY
+                    </th>
+                    <th className="text-right py-2 px-2 text-sm font-bold">
+                      PRICE
                     </th>
 
                     <th className="text-right py-2 px-2 text-sm font-bold">
@@ -268,11 +269,12 @@ const QuatationView = () => {
                           {item.quotationSub_description}
                         </div>
                       </td>
-                      <td className="py-3 px-2 text-sm text-right align-top">
-                        <div>{item.quotationSub_rate}</div>
-                      </td>
+
                       <td className="py-3 px-2 text-sm text-right align-top">
                         {item.quotationSub_qnty || "0"}
+                      </td>
+                      <td className="py-3 px-2 text-sm text-right align-top">
+                        <div>{item.quotationSub_rate}</div>
                       </td>
                       <td className="py-3 px-2 text-sm text-right align-top">
                         {item.quotationSub_amount || "0"}{" "}
@@ -367,7 +369,6 @@ const QuatationView = () => {
             </div>
           </div>
         </div>
-        
       </div>
     </Layout>
   );

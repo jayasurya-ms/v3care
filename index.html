@@ -11,7 +11,8 @@
     integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
      <!--  Google Maps API  -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAk4WgZpl2DuYxnfgYLCXEQKvVLK3hJ7S0&libraries=places" async defer></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAk4WgZpl2DuYxnfgYLCXEQKvVLK3hJ7S0&libraries=places&loading=async&callback=setupGoogleMaps" async defer></script>
+  <script>window.setupGoogleMaps = () => {};</script>
 </head>
 
 <body>

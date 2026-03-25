@@ -456,13 +456,13 @@ const QuotationForm = () => {
 
                 <th className="border p-3 w-[10%] text-center">
                   <Typography variant="small" className="font-bold">
-                    Rate
+                    Qty
                   </Typography>
                 </th>
 
                 <th className="border p-3 w-[10%] text-center">
                   <Typography variant="small" className="font-bold">
-                    Qty
+                    Rate
                   </Typography>
                 </th>
 
@@ -526,6 +526,28 @@ const QuotationForm = () => {
                     />
                   </td>
 
+                  {/* Qty */}
+                  <td className="border p-2">
+                    {/* <Input
+                      name="quotationSub_qnty"
+                      value={item.quotationSub_qnty}
+                      onChange={(e) => handleSubChange(index, e)}
+                      className="!w-24 appearance-none !border-t-blue-gray-200 focus:!border-t-gray-900"
+                      labelProps={{
+                        className: "before:content-none after:content-none",
+                      }}
+                    /> */}
+                    <OutlinedInput
+                      name="quotationSub_qnty"
+                      value={item.quotationSub_qnty}
+                      onChange={(e) => handleSubChange(index, e)}
+                      size="small"
+                      inputProps={{
+                        inputMode: "decimal",
+                      }}
+                    />
+                  </td>
+
                   {/* Rate */}
                   <td className="border p-2 items-center">
                     {/* <Input
@@ -541,28 +563,6 @@ const QuotationForm = () => {
                     <OutlinedInput
                       name="quotationSub_rate"
                       value={item.quotationSub_rate}
-                      onChange={(e) => handleSubChange(index, e)}
-                      size="small"
-                      inputProps={{
-                        inputMode: "decimal",
-                      }}
-                    />
-                  </td>
-
-                  {/* Qty */}
-                  <td className="border p-2">
-                    {/* <Input
-                      name="quotationSub_qnty"
-                      value={item.quotationSub_qnty}
-                      onChange={(e) => handleSubChange(index, e)}
-                      className="!w-24 appearance-none !border-t-blue-gray-200 focus:!border-t-gray-900"
-                      labelProps={{
-                        className: "before:content-none after:content-none",
-                      }}
-                    /> */}
-                    <OutlinedInput
-                      name="quotationSub_qnty"
-                      value={item.quotationSub_qnty}
                       onChange={(e) => handleSubChange(index, e)}
                       size="small"
                       inputProps={{
