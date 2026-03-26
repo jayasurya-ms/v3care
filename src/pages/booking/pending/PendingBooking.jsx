@@ -15,7 +15,7 @@ import Layout from "../../../layout/Layout";
 import { ContextPanel } from "../../../utils/ContextPanel";
 import UseEscapeKey from "../../../utils/UseEscapeKey";
 import AssignDetailsModal from "../../../components/AssignDetailsModal";
-import { TextField } from "@mui/material";
+import { TextField, TableFooter, TableRow, TableCell } from "@mui/material";
 
 const PendingBooking = () => {
   const [pendingBookData, setPendingBookData] = useState(null);
@@ -472,6 +472,7 @@ const PendingBooking = () => {
           const price = tableMeta.rowData[10];
           const advance_amount = tableMeta.rowData[37];
           const dis_amount = tableMeta.rowData[38];
+          const payment_type = tableMeta.rowData[23];
           const balance =
             Number(price) -
             Number(advance_amount) -
@@ -479,7 +480,12 @@ const PendingBooking = () => {
             Number(paid_amount);
           return (
             <div className=" flex flex-col">
-              <span> {balance ? balance : "0"}</span>
+              <span
+                className={`px-5 py-2 text-center rounded-lg ${paid_amount != 0 && payment_type != null ? "bg-blue-500 text-white" : "bg-red-500 text-white"}`}
+              >
+                {" "}
+                {balance ? balance : "0"}
+              </span>
             </div>
           );
         },
@@ -897,30 +903,38 @@ const PendingBooking = () => {
     },
     customFooter: (count, page, rowsPerPage, changeRowsPerPage, changePage) => {
       return (
-        <div className="flex justify-end items-center p-4">
-          <span className="mx-4">
-            <span className="text-red-600">Page {page + 1}</span> of{" "}
-            {Math.ceil(count / rowsPerPage)}
-          </span>
-          <IoIosArrowBack
-            onClick={page === 0 ? null : () => changePage(page - 1)}
-            className={`w-6 h-6 cursor-pointer ${
-              page === 0 ? "text-gray-400 cursor-not-allowed" : "text-blue-600"
-            }  hover:text-red-600`}
-          />
-          <IoIosArrowForward
-            onClick={
-              page >= Math.ceil(count / rowsPerPage) - 1
-                ? null
-                : () => changePage(page + 1)
-            }
-            className={`w-6 h-6 cursor-pointer ${
-              page >= Math.ceil(count / rowsPerPage) - 1
-                ? "text-gray-400 cursor-not-allowed"
-                : "text-blue-600"
-            }  hover:text-red-600`}
-          />
-        </div>
+        <TableFooter>
+          <TableRow>
+            <TableCell colSpan={1000} sx={{ border: "none" }}>
+              <div className="flex justify-end items-center p-4">
+                <span className="mx-4">
+                  <span className="text-red-600">Page {page + 1}</span> of{" "}
+                  {Math.ceil(count / rowsPerPage)}
+                </span>
+                <IoIosArrowBack
+                  onClick={page === 0 ? null : () => changePage(page - 1)}
+                  className={`w-6 h-6 cursor-pointer ${
+                    page === 0
+                      ? "text-gray-400 cursor-not-allowed"
+                      : "text-blue-600"
+                  }  hover:text-red-600`}
+                />
+                <IoIosArrowForward
+                  onClick={
+                    page >= Math.ceil(count / rowsPerPage) - 1
+                      ? null
+                      : () => changePage(page + 1)
+                  }
+                  className={`w-6 h-6 cursor-pointer ${
+                    page >= Math.ceil(count / rowsPerPage) - 1
+                      ? "text-gray-400 cursor-not-allowed"
+                      : "text-blue-600"
+                  }  hover:text-red-600`}
+                />
+              </div>
+            </TableCell>
+          </TableRow>
+        </TableFooter>
       );
     },
   };
