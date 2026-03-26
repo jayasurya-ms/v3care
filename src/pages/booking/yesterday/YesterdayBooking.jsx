@@ -471,6 +471,7 @@ const YesterdayBooking = () => {
           const price = tableMeta.rowData[10];
           const advance_amount = tableMeta.rowData[37];
           const dis_amount = tableMeta.rowData[38];
+          const payment_type = tableMeta.rowData[23];
           const balance =
             Number(price) -
             Number(advance_amount) -
@@ -478,7 +479,11 @@ const YesterdayBooking = () => {
             Number(paid_amount);
           return (
             <div className=" flex flex-col">
-              <span> {balance ? balance : "0"}</span>
+              <span
+                className={`px-5 py-2 text-center rounded-lg ${paid_amount != 0 && payment_type != null ? "bg-blue-500 text-white" : "bg-red-500 text-white"}`}
+              >
+                {balance ? balance : "0"}
+              </span>
             </div>
           );
         },
@@ -864,26 +869,28 @@ const YesterdayBooking = () => {
     setRowProps: (rowData) => {
       const orderStatus = rowData[25];
       let backgroundColor = "";
-      if (orderStatus === "Confirmed") {
-        backgroundColor = "#F7D5F1"; // light pink
-      } else if (orderStatus == "ReConfirmed") {
-        backgroundColor = "#F7D5F1"; // light pink
-      } else if (orderStatus == "Completed") {
-        backgroundColor = "#F0A7FC"; // light
-      } else if (orderStatus === "Inspection") {
-        backgroundColor = "#B9CCF4"; // light blue
-      } else if (orderStatus === "RNR") {
-        backgroundColor = "#B9CCF4"; // light blue
-      } else if (orderStatus === "Pending") {
+      if (orderStatus == "Confirmed") {
         backgroundColor = "#fff"; // white
-      } else if (orderStatus === "Cancel") {
+      } else if (orderStatus == "ReConfirmed") {
+        backgroundColor = "#fff"; // white
+      } else if (orderStatus == "Completed") {
+        backgroundColor = "#d2c211"; // gold yellow
+      } else if (orderStatus == "Inspection") {
+        backgroundColor = "#B9CCF4"; // light blue
+      } else if (orderStatus == "RNR") {
+        backgroundColor = "#B9CCF4"; // light blue
+      } else if (orderStatus == "Pending") {
+        backgroundColor = "#F7D5F1"; // light pink
+      } else if (orderStatus == "Cancel") {
         backgroundColor = "#F76E6E"; // light  red
-      } else if (orderStatus === "On the way") {
+      } else if (orderStatus == "On the way") {
         backgroundColor = "#fff3cd"; // light  yellow
-      } else if (orderStatus === "In Progress") {
+      } else if (orderStatus == "In Progress") {
         backgroundColor = "#A7FCA7"; // light  green
-      } else if (orderStatus === "Vendor") {
+      } else if (orderStatus == "Vendor") {
         backgroundColor = "#F38121"; // light  ornage
+      } else if (orderStatus == "Reached") {
+        backgroundColor = "#17d032"; // light  green
       }
 
       return {

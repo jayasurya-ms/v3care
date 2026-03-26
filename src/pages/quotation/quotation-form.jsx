@@ -20,7 +20,7 @@ import {
   Button,
 } from "@material-tailwind/react";
 import PageHeader from "../../components/common/PageHeader/PageHeader";
-import { OutlinedInput, TextareaAutosize, TextField } from "@mui/material";
+import { OutlinedInput, TextareaAutosize, TextField, Select, MenuItem, FormControl, InputLabel } from "@mui/material";
 const QuotationForm = () => {
   const { id } = useParams();
   const [searchParams] = useSearchParams();
@@ -41,6 +41,7 @@ const QuotationForm = () => {
     quotation_customer_alt_mobile: "",
     quotation_customer_email: "",
     quotation_customer_address: "",
+    quotation_status: "",
     quotation_payment_terms: "",
     quotation_cgst: "0",
     quotation_sgst: "0",
@@ -56,6 +57,14 @@ const QuotationForm = () => {
       },
     ],
   });
+
+  const status = [
+    { value: "Pending", label: "Pending" },
+    { value: "Converted", label: "Converted" },
+    { value: "Cancelled", label: "Cancelled" },
+    { value: "Followup", label: "Followup" },
+  ];
+
   const addRow = () => {
     setFormData((prev) => ({
       ...prev,
@@ -86,15 +95,19 @@ const QuotationForm = () => {
       }));
     }
   };
+  const [loaded, setLoaded] = useState(false);
+
   useEffect(() => {
-    if (!id || !mode) return;
+    if (!id || !mode || loaded) return;
 
     if (isEdit) {
       fetchQuotation();
     } else {
       fetchBooking();
     }
-  }, [id, mode]);
+
+    setLoaded(true);
+  }, [id, mode, loaded]);
 
   const fetchBooking = async () => {
     try {
@@ -142,6 +155,7 @@ const QuotationForm = () => {
         quotation_customer_alt_mobile: data.quotation_customer_alt_mobile || "",
         quotation_customer_email: data.quotation_customer_email || "",
         quotation_customer_address: data.quotation_customer_address,
+        quotation_status: data.quotation_status,
         quotation_payment_terms: data.quotation_payment_terms,
         quotation_cgst: data.quotation_cgst,
         quotation_sgst: data.quotation_sgst,
@@ -230,6 +244,7 @@ const QuotationForm = () => {
       quotation_customer_alt_mobile: formData.quotation_customer_alt_mobile,
       quotation_customer_email: formData.quotation_customer_email,
       quotation_customer_address: formData.quotation_customer_address,
+      quotation_status: formData.quotation_status,
       quotation_payment_terms: formData.quotation_payment_terms,
       quotation_cgst: formData.quotation_cgst,
       quotation_sgst: formData.quotation_sgst,
@@ -319,7 +334,10 @@ const QuotationForm = () => {
       <PageHeader title={isEdit ? "Edit Quotation" : "Create Quotation"} />
       <div className="p-6 bg-white rounded shadow mt-4">
         <form
-          onSubmit={handleSubmit}
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleSubmit(e);
+          }}
           onKeyDown={(e) => {
             if (e.key === "Enter") {
               e.preventDefault();
@@ -437,6 +455,28 @@ const QuotationForm = () => {
                 onChange={handleChange}
               />
             </div>
+            {isEdit && (
+              <div>
+                <FormControl fullWidth size="small">
+                  <InputLabel id="quotation-status-select-label">Status *</InputLabel>
+                  <Select
+                    labelId="quotation-status-select-label"
+                    id="quotation-status"
+                    name="quotation_status"
+                    value={formData.quotation_status}
+                    onChange={handleChange}
+                    label="Status *"
+                    required
+                  >
+                    {status.map((data) => (
+                      <MenuItem key={data.value} value={data.value}>
+                        {data.label}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </div>
+            )}
           </div>
 
           <table className="w-full table-fixed text-left border-collapse mb-4">
@@ -485,15 +525,6 @@ const QuotationForm = () => {
                 <tr key={index} className="border-b">
                   {/* Heading */}
                   <td className="border p-2">
-                    {/* <Input
-                      className="w-full appearance-none !border-t-blue-gray-200 focus:!border-t-gray-900"
-                      name="quotationSub_heading"
-                      value={item.quotationSub_heading}
-                      onChange={(e) => handleSubChange(index, e)}
-                      labelProps={{
-                        className: "before:content-none after:content-none",
-                      }}
-                    /> */}
                     <OutlinedInput
                       name="quotationSub_heading"
                       value={item.quotationSub_heading}
@@ -505,16 +536,6 @@ const QuotationForm = () => {
 
                   {/* Description */}
                   <td className="border p-2">
-                    {/* <TextareaAutosize
-                      name="quotationSub_description"
-                      value={item.quotationSub_description}
-                      onChange={(e) => handleSubChange(index, e)}
-                      rows={2}
-                      className="w-full min-h-[60px] appearance-none !border border-gray-400 rounded-lg"
-                      labelProps={{
-                        className: "before:content-none after:content-none",
-                      }}
-                    /> */}
                     <OutlinedInput
                       name="quotationSub_description"
                       value={item.quotationSub_description}
@@ -528,15 +549,6 @@ const QuotationForm = () => {
 
                   {/* Qty */}
                   <td className="border p-2">
-                    {/* <Input
-                      name="quotationSub_qnty"
-                      value={item.quotationSub_qnty}
-                      onChange={(e) => handleSubChange(index, e)}
-                      className="!w-24 appearance-none !border-t-blue-gray-200 focus:!border-t-gray-900"
-                      labelProps={{
-                        className: "before:content-none after:content-none",
-                      }}
-                    /> */}
                     <OutlinedInput
                       name="quotationSub_qnty"
                       value={item.quotationSub_qnty}
@@ -550,16 +562,6 @@ const QuotationForm = () => {
 
                   {/* Rate */}
                   <td className="border p-2 items-center">
-                    {/* <Input
-                      name="quotationSub_rate"
-                      value={item.quotationSub_rate}
-                      onChange={(e) => handleSubChange(index, e)}
-                      className="!w-28 appearance-none !border-t-blue-gray-200 focus:!border-t-gray-900"
-                      labelProps={{
-                        className: "before:content-none after:content-none",
-                      }}
-                    /> */}
-
                     <OutlinedInput
                       name="quotationSub_rate"
                       value={item.quotationSub_rate}
@@ -654,7 +656,7 @@ const QuotationForm = () => {
             )}
 
             <ButtonConfigColor
-              type="back"
+              type="button"
               buttontype="button"
               label="Cancel"
               onClick={() => navigate(-1)}

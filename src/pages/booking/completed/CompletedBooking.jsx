@@ -457,6 +457,7 @@ const CompletedBooking = () => {
           const price = tableMeta.rowData[10];
           const advance_amount = tableMeta.rowData[37];
           const dis_amount = tableMeta.rowData[38];
+          const payment_type = tableMeta.rowData[23];
           const balance =
             Number(price) -
             Number(advance_amount) -
@@ -464,7 +465,12 @@ const CompletedBooking = () => {
             Number(paid_amount);
           return (
             <div className=" flex flex-col">
-              <span> {balance ? balance : "0"}</span>
+              <span
+                className={`px-5 py-2 text-center rounded-lg ${paid_amount != 0 && payment_type != null ? "bg-blue-500 text-white" : "bg-red-500 text-white"}`}
+              >
+                {" "}
+                {balance ? balance : "0"}
+              </span>
             </div>
           );
         },

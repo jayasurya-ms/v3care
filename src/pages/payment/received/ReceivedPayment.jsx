@@ -1064,7 +1064,7 @@ const PendingPayment = () => {
   const tableTitle = useMemo(
     () => (
       <div className="flex items-center justify-between w-full">
-        <span className="text-lg font-semibold">Payment Xlosed</span>
+        <span className="text-lg font-semibold">Payment Closed</span>
         <div className="flex items-center space-x-4 px-3 py-1 bg-blue-50 rounded-md">
           <div className="flex items-end space-x-1">
             <span className="text-xs text-gray-600">Total Amount:</span>

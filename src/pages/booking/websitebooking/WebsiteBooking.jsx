@@ -723,17 +723,17 @@ const WebsiteBooking = () => {
       const orderStatus = rowData[22];
       let backgroundColor = "";
       if (orderStatus == "Confirmed") {
-        backgroundColor = "#F7D5F1"; // light pink
+        backgroundColor = "#fff"; // white
       } else if (orderStatus == "ReConfirmed") {
-        backgroundColor = "#F7D5F1"; // light pink
+        backgroundColor = "#fff"; // white
       } else if (orderStatus == "Completed") {
-        backgroundColor = "#F0A7FC"; // light
+        backgroundColor = "#d2c211"; // gold yellow
       } else if (orderStatus == "Inspection") {
         backgroundColor = "#B9CCF4"; // light blue
       } else if (orderStatus == "RNR") {
         backgroundColor = "#B9CCF4"; // light blue
       } else if (orderStatus == "Pending") {
-        backgroundColor = "#fff"; // white
+        backgroundColor = "#F7D5F1"; // light pink
       } else if (orderStatus == "Cancel") {
         backgroundColor = "#F76E6E"; // light  red
       } else if (orderStatus == "On the way") {
@@ -742,6 +742,8 @@ const WebsiteBooking = () => {
         backgroundColor = "#A7FCA7"; // light  green
       } else if (orderStatus == "Vendor") {
         backgroundColor = "#F38121"; // light  ornage
+      } else if (orderStatus == "Reached") {
+        backgroundColor = "#17d032"; // light  green
       }
 
       return {
