@@ -483,7 +483,7 @@ const ConfirmedBooking = () => {
           return (
             <div className=" flex flex-col">
               <span
-                className={`px-5 py-2 text-center rounded-lg ${paid_amount != 0 && payment_type != null ? "bg-blue-500 text-white" : "bg-red-500 text-white"}`}
+                className={`px-5 py-2 text-center rounded-lg text-white ${balance != 0 && payment_type == null ? "bg-red-500" : "bg-blue-500"}`}
               >
                 {" "}
                 {balance ? balance : "0"}
@@ -874,27 +874,27 @@ const ConfirmedBooking = () => {
       const orderStatus = rowData[25];
       let backgroundColor = "";
       if (orderStatus == "Confirmed") {
-        backgroundColor = "#fff"; // white
+        backgroundColor = "#ffffff"; // white
       } else if (orderStatus == "ReConfirmed") {
-        backgroundColor = "#fff"; // white
+        backgroundColor = "#ffffff"; // white
       } else if (orderStatus == "Completed") {
-        backgroundColor = "#d2c211"; // gold yellow
+        backgroundColor = "#fed966"; // gold yellow
       } else if (orderStatus == "Inspection") {
-        backgroundColor = "#B9CCF4"; // light blue
+        backgroundColor = "#01b0f1"; // light blue
       } else if (orderStatus == "RNR") {
         backgroundColor = "#B9CCF4"; // light blue
       } else if (orderStatus == "Pending") {
-        backgroundColor = "#F7D5F1"; // light pink
+        backgroundColor = "#ffc8ce"; // light pink
       } else if (orderStatus == "Cancel") {
         backgroundColor = "#F76E6E"; // light  red
       } else if (orderStatus == "On the way") {
-        backgroundColor = "#fff3cd"; // light  yellow
+        backgroundColor = "#ffff00"; // light  yellow
       } else if (orderStatus == "In Progress") {
         backgroundColor = "#A7FCA7"; // light  green
       } else if (orderStatus == "Vendor") {
         backgroundColor = "#F38121"; // light  ornage
       } else if (orderStatus == "Reached") {
-        backgroundColor = "#17d032"; // light  green
+        backgroundColor = "#92d14f"; // light  green
       }
 
       return {

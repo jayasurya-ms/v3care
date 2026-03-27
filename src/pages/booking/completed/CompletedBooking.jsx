@@ -466,7 +466,7 @@ const CompletedBooking = () => {
           return (
             <div className=" flex flex-col">
               <span
-                className={`px-5 py-2 text-center rounded-lg ${paid_amount != 0 && payment_type != null ? "bg-blue-500 text-white" : "bg-red-500 text-white"}`}
+                className={`px-5 py-2 text-center rounded-lg text-white ${balance != 0 && payment_type == null ? "bg-red-500" : "bg-blue-500"}`}
               >
                 {" "}
                 {balance ? balance : "0"}
