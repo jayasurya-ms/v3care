@@ -890,9 +890,17 @@ const EditBookingInspection = () => {
                       loading={loading}
                       onClick={onSubmit}
                     />
+                    <ButtonConfigColor  
+                      type="submit"
+                      buttontype="button"
+                      label="Reassign"
+                      onClick={() => {
+                        navigate(`/add-booking-reassign/${id}`);
+                      }}
+                    />
                     <ButtonConfigColor
                       type="submit"
-                      label="Cancel / Postponed"
+                      label="Postponed"
                       onClick={() => navigate(`/booking-reschedule/${id}`)}
                     />
 
