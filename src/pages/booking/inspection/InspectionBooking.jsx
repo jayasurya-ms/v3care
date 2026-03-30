@@ -161,7 +161,7 @@ const InspectionBooking = () => {
                 <CiSquarePlus
                   onClick={(e) => handleEdit(e, id)}
                   title="Edit Booking"
-                  className="h-6 w-6 hover:w-8 hover:h-8 hover:text-blue-900 cursor-pointer"
+                  className="h-6 w-6 hover:text-blue-900 cursor-pointer"
                 />
               )}
               <ClipboardList
@@ -174,7 +174,7 @@ const InspectionBooking = () => {
 
               <CommentPopover booking={booking} />
               {(userType == "6" || userType == "7" || userType == "8") &&
-                quotation && (
+                (
                   <FaWpforms
                     title="Quotation"
                     onClick={(e) => handleQuotation(e, id)}
